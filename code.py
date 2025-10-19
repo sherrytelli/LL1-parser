@@ -578,7 +578,11 @@ def main():
     # 2. Parse an input string
     if parser.is_ll1:
         try:
-            input_str = input("\nEnter an input string to parse: ")
+            rules = "\n--- 7. Enter input string for parser ---\n"
+            rules += "rules: 1. You must put a space ' ' between every individual token\n"
+            rules += "       2. You do not need to add the '$' to your string. The program adds this for you automatically.\n"
+            print(rules)
+            input_str = input("input string: ")
             parser.parse(input_str)
 
         except EOFError:
