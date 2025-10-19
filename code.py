@@ -116,8 +116,6 @@ class LL1Parser:
             prods = self.grammar[nt]
             
             # Step 1: Substitution (for indirect LR)
-            # This handles cases like A -> B x, B -> A y
-            # We iterate through all previously processed NTs (j < i)
             substituted_prods = []
             for prod in prods:
                 if prod[0] in nt_list[:i]: # If starts with a processed NT
@@ -270,6 +268,16 @@ class LL1Parser:
             changed = False
             for nt, prods in self.grammar.items():
                 for prod in prods:
+                    
+                    # --- BUG FIX START ---
+                    # Handle A -> e production directly
+                    if prod == ['e']:
+                        if 'e' not in self.first[nt]:
+                            self.first[nt].add('e')
+                            changed = True
+                        continue # Move to the next production
+                    # --- BUG FIX END ---
+                    
                     # prod = [Y1, Y2, ..., Yk]
                     rhs_first = set()
                     all_nullable = True
@@ -535,9 +543,9 @@ class LL1Parser:
 def main():
     # 1. Initialize the parser
     # This will automatically run all steps 1-6
-    grammar_file = "grammar2.txt"
+    grammar_file = "grammar2.txt"    
     parser = LL1Parser(grammar_file)
-    
+
     # 2. Parse an input string
     if parser.is_ll1:
         try:
@@ -546,13 +554,13 @@ def main():
             
             # Example 2
             print("\n" + "="*50)
-            input_str_2 = "( id + id ) * id"
+            input_str_2 = "b"
             print(f"Parsing second example: '{input_str_2}'")
             parser.parse(input_str_2)
             
             # Example 3 (Rejection)
             print("\n" + "="*50)
-            input_str_3 = "id + * id"
+            input_str_3 = "a"
             print(f"Parsing rejection example: '{input_str_3}'")
             parser.parse(input_str_3)
 
