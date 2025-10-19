@@ -563,18 +563,6 @@ def main():
         try:
             input_str = input("\nEnter an input string to parse: ")
             parser.parse(input_str)
-            
-            # Example 2
-            print("\n" + "="*50)
-            input_str_2 = "b"
-            print(f"Parsing second example: '{input_str_2}'")
-            parser.parse(input_str_2)
-            
-            # Example 3 (Rejection)
-            print("\n" + "="*50)
-            input_str_3 = "a"
-            print(f"Parsing rejection example: '{input_str_3}'")
-            parser.parse(input_str_3)
 
         except EOFError:
             print("\nNo input provided. Exiting.")
