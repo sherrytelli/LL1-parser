@@ -306,9 +306,21 @@ class LL1Parser:
             f_symbol = self.first[symbol]
             result.update(f_symbol - {'e'})
             
-            if symbol not in self.nullable:
+            # --- BUG FIX START ---
+            # The check must correctly identify non-nullable symbols.
+            # 1. 'e' is always nullable.
+            # 2. Terminals (other than 'e') are never nullable.
+            # 3. Non-terminals are nullable only if they are in the nullable set.
+            is_symbol_nullable = False
+            if symbol == 'e':
+                is_symbol_nullable = True
+            elif symbol in self.non_terminals and symbol in self.nullable:
+                is_symbol_nullable = True
+            
+            if not is_symbol_nullable:
                 all_nullable = False
                 break
+            # --- BUG FIX END ---
                 
         if all_nullable:
             result.add('e')
