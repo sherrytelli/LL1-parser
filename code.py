@@ -553,10 +553,27 @@ class LL1Parser:
 
 # --- Main execution ---
 def main():
+    if len(sys.argv) != 2:
+        print("No grammer file provided.")
+        print("\nExample usage: python code.py path/to/grammer/file")
+        
+        example_grammer = "\nnexample of grammer in a file: \n\n"
+        example_grammer += "S -> A B\n"
+        example_grammer += "A -> a | e\n"
+        example_grammer += "B -> b\n\n"
+        example_grammer += "rules: 1. you must use '->' to separate the non-terminal on the left from its productions on the right.\n"
+        example_grammer += "       2. You must put a space ' ' between every symbol in a production.\n"
+        example_grammer += "       3. You must use a single lowercase 'e' to represent epsilon(ϵ).\n"
+        example_grammer += "       4. You must use the '|' symbol to separate multiple productions for the same non-terminal.\n"
+        example_grammer += "       5. The non-terminal on the first valid grammar line in the file is automatically set as the start symbol.\n"
+        example_grammer += "       6. You can add comments to your file by starting a line with the '#' symbol. The parser will ignore these lines."
+        
+        print(example_grammer)
+        return
+    
     # 1. Initialize the parser
-    # This will automatically run all steps 1-6
-    grammar_file = "grammar2.txt"    
-    parser = LL1Parser(grammar_file)
+    # This will automatically run all steps 1-6    
+    parser = LL1Parser(sys.argv[1])
 
     # 2. Parse an input string
     if parser.is_ll1:
