@@ -410,7 +410,7 @@ class LL1Parser:
             action = ""
             
             if stack_top == current_token == '$':
-                action = "Accept 🥳"
+                action = "Accept"
                 trace.append([step, stack_str, input_str, action])
                 self._print_trace(trace)
                 print("\nString Accepted.")
@@ -428,7 +428,7 @@ class LL1Parser:
                     action = f"Error: Mismatch (Stack: {stack_top}, Input: {current_token})"
                     trace.append([step, stack_str, input_str, action])
                     self._print_trace(trace)
-                    print(f"\nString Rejected: Mismatch. 🚫")
+                    print(f"\nString Rejected: Mismatch.")
                     return False
                     
             elif stack_top in self.non_terminals:
@@ -438,7 +438,7 @@ class LL1Parser:
                     action = f"Error: No rule in M[{stack_top}, {current_token}]"
                     trace.append([step, stack_str, input_str, action])
                     self._print_trace(trace)
-                    print(f"\nString Rejected: No parsing table entry. 🚫")
+                    print(f"\nString Rejected: No parsing table entry.")
                     return False
                 else:
                     action = f"Apply {stack_top} -> {' '.join(production) or 'e'}"
@@ -465,7 +465,7 @@ class LL1Parser:
                 action = f"Error: Unknown symbol on stack {stack_top}"
                 trace.append([step, stack_str, input_str, action])
                 self._print_trace(trace)
-                print(f"\nString Rejected: Internal Error. 🚫")
+                print(f"\nString Rejected: Internal Error.")
                 return False
 
             trace.append([step, stack_str, input_str, action])
@@ -473,7 +473,7 @@ class LL1Parser:
             
         # Should be caught by the '$' == '$' check
         self._print_trace(trace)
-        print("\nString Rejected: Stack emptied unexpectedly. 🚫")
+        print("\nString Rejected: Stack emptied unexpectedly.")
         return False
 
     # --- Printing Helper Methods ---
@@ -535,7 +535,7 @@ class LL1Parser:
 def main():
     # 1. Initialize the parser
     # This will automatically run all steps 1-6
-    grammar_file = "grammar.txt"
+    grammar_file = "grammar2.txt"
     parser = LL1Parser(grammar_file)
     
     # 2. Parse an input string
