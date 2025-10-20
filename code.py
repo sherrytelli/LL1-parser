@@ -407,7 +407,7 @@ class LL1Parser:
             print("\nCannot parse: Grammar is not LL(1).")
             return
 
-        print(f"\n--- 7. Parsing Input String: '{input_string}' ---")
+        print(f"\n--- Parsing Input String: '{input_string}' ---")
         
         tokens = input_string.strip().split() + ['$']
         stack = ['$', self.start_symbol]
@@ -421,7 +421,7 @@ class LL1Parser:
         input_ptr = 0
         
         while stack:
-            stack_str = " ".join(reversed(stack))
+            stack_str = " ".join(stack)
             input_str = " ".join(tokens[input_ptr:])
             
             stack_top = stack[-1]
@@ -587,6 +587,8 @@ def main():
             input_str = input("input string: ")
             while input_str.lower() != "exit":
                 parser.parse(input_str)
+                print("")
+                print("-" * 35)
                 input_str = input("\ninput string: ")
 
         except EOFError:
