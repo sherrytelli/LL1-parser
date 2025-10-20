@@ -434,7 +434,7 @@ class LL1Parser:
                 trace.append([step, stack_str, input_str, action])
                 self._print_trace(trace)
                 print("\nString Accepted.")
-                print("\n--- 8. Generating Parse Tree ---")
+                print("\n--- Generating Parse Tree ---")
                 self._print_tree_recursive(root)
                 return True
                 
@@ -581,9 +581,13 @@ def main():
             rules = "\n--- 7. Enter input string for parser ---\n"
             rules += "rules: 1. You must put a space ' ' between every individual token\n"
             rules += "       2. You do not need to add the '$' to your string. The program adds this for you automatically.\n"
+            rules += "       3. Enter 'exit' to quit the program"
             print(rules)
+            
             input_str = input("input string: ")
-            parser.parse(input_str)
+            while input_str.lower() != "exit":
+                parser.parse(input_str)
+                input_str = input("\ninput string: ")
 
         except EOFError:
             print("\nNo input provided. Exiting.")
